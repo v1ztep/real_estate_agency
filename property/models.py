@@ -22,5 +22,7 @@ class Flat(models.Model):
     active = models.BooleanField("Активно-ли объявление", db_index=True)
     construction_year = models.IntegerField("Год постройки здания", null=True, blank=True, db_index=True)
 
+    new_building = models.NullBooleanField("Новое здание", default=None, choices = [(None,"Не заполнено"),(True,"Новостройка"),(False,"Старое здание")])
+
     def __str__(self):
         return f"{self.town}, {self.address} ({self.price}р.)"
