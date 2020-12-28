@@ -24,8 +24,6 @@ def show_flats(request):
         flats = flats.filter(price__gt=min_price)
     if max_price:
         flats = flats.filter(price__lt=max_price)
-    if min_price or max_price:
-        flats = flats.exclude(price=None)
     if new_building:
         flats = flats.filter(new_building=True)
 
