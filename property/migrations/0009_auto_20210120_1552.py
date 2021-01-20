@@ -7,9 +7,10 @@ def set_normalized_phone(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for flat in Flat.objects.all():
         parsed_phone = phonenumbers.parse(flat.owners_phonenumber, "RU")
-        standardized_phone = phonenumbers.format_number(parsed_phone, phonenumbers.PhoneNumberFormat.E164)
-        flat.owner_pure_phone = standardized_phone
-        flat.save()
+        if phonenumbers.is_valid_number(parsed_phone):
+            standardized_phone = phonenumbers.format_number(parsed_phone, phonenumbers.PhoneNumberFormat.E164)
+            flat.owner_pure_phone = standardized_phone
+            flat.save()
 
 class Migration(migrations.Migration):
 
