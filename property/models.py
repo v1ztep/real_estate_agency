@@ -5,6 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
+    owners = models.ManyToManyField('Owner', verbose_name='Собственники')
     owner_deprecated = models.CharField("ФИО владельца", max_length=200)
     owners_phonenumber = models.CharField("Номер владельца", max_length=20)
     owner_pure_phone = PhoneNumberField("Нормализованный номер владельца",null=True, blank=True)
@@ -45,7 +46,7 @@ class Owner(models.Model):
     owners_phonenumber = models.CharField("Номер владельца", max_length=20, db_index=True)
     owner_pure_phone = PhoneNumberField("Нормализованный номер владельца", null=True, blank=True, db_index=True)
 
-    owner_flats = models.ManyToManyField(Flat, related_name="flat_owners", verbose_name='Квартиры в собственности')
+    owner_flats = models.ManyToManyField(Flat, verbose_name='Квартиры в собственности')
 
     def __str__(self):
         return self.owner
