@@ -12,7 +12,7 @@ def set_flat_to_owner(apps, schema_editor):
                                     defaults={
                                         'owners_phonenumber': flat.owners_phonenumber,
                                     })
-        owner.owner_flats.set(flat)
+        owner.owner_flats.set([flat])
 
 def set_owner_to_flat(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
@@ -23,7 +23,7 @@ def set_owner_to_flat(apps, schema_editor):
                                     defaults={
                                         'owners_phonenumber': owner.owners_phonenumber,
                                     })
-        flat.owners.set(owner)
+        flat.owners.set([owner])
 
 class Migration(migrations.Migration):
 
