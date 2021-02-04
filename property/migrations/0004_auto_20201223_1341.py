@@ -7,14 +7,11 @@ def set_new_building(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     separator_year = 2015
     for flat in Flat.objects.all():
-        if flat.construction_year < separator_year:
-            flat.new_building = False
-        else:
-            flat.new_building = True
+        flat.new_building = flat.construction_year >= separator_year
         flat.save()
 
-class Migration(migrations.Migration):
 
+class Migration(migrations.Migration):
     dependencies = [
         ('property', '0003_flat_new_building'),
     ]
