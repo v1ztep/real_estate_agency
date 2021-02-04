@@ -22,8 +22,7 @@ class Flat(models.Model):
                                help_text='ул. Подольских курсантов д.5 кв.4')
     floor = models.CharField(
         'Этаж', max_length=3,
-        help_text='Первый этаж, последний этаж, пятый этаж'
-    )
+        help_text='Первый этаж, последний этаж, пятый этаж')
 
     rooms_number = models.IntegerField('Количество комнат в квартире',
                                        db_index=True)
@@ -38,7 +37,8 @@ class Flat(models.Model):
     new_building = models.NullBooleanField('Новое здание', default=None,
                                            choices=[(None, 'Не заполнено'),
                                                     (True, 'Новостройка'),
-                                                    (False, 'Старое здание')])
+                                                    (False, 'Старое здание')],
+                                           db_index=True)
 
     liked_by = models.ManyToManyField(User, related_name='liked_flats',
                                       verbose_name='Кто лайкнул')
@@ -66,9 +66,7 @@ class Owner(models.Model):
                                         null=True, blank=True, db_index=True)
 
     owner_flats = models.ManyToManyField(
-        Flat,
-        verbose_name='Квартиры в собственности'
-    )
+        Flat, verbose_name='Квартиры в собственности')
 
     def __str__(self):
         return self.owner
